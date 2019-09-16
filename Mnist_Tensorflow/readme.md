@@ -1,0 +1,2 @@
+#### MNIST 数据集来自美国国家标准与技术研究所, National Institute of Standards and Technology (NIST). 训练集 (training set) 由来自 250 个不同人手写的数字构成, 其中 50% 是高中学生, 50% 来自人口普查局 (the Census Bureau) 的工作人员. 测试集(test set) 也是同样比例的手写数字数据.本代码是用Tensorflow进行深度学习
+并调整其初始化方式、增加正则化、调整神经元个数以及增加隐层等来训练模型最终的训练结果为0.9709
