@@ -1,0 +1,19 @@
+[2019-11-18 17:52:08.334] [WARNING] [1151] [main.py:7]   Configurations.
+{
+    "config_dir": "./config",
+    "file1_name": "file1",
+    "file2_name": "file2"
+}
+[2019-11-18 17:53:12.199] [WARNING] [2151] [main.py:7]   Configurations.
+{
+    "config_dir": "./config",
+    "data_path": "file1",
+    "file2_name": "file2"
+}
+[2019-11-18 17:54:20.141] [WARNING] [3184] [main.py:7]   Configurations.
+{
+    "config_dir": "./config",
+    "data_path": "./data/",
+    "modelPath": "./Model_backup/",
+    "plotPath": "./plot_backup/"
+}
