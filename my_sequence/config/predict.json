@@ -1,6 +1,0 @@
-{
-  "data_dir_path": "/home/wb-ghd629671/sequence_prediction/huabei/",
-  "model_file": "./model/1212_huabei_60mins_288Ties.model",
-  "input_file": "./data/1212_huabei_npz_file.npz",
-  "output_file": "./data/test_result.csv"
-}
