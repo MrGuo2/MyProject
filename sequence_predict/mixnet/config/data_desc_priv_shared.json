@@ -1,0 +1,182 @@
+{
+  "input": {
+    "std_id": {
+      "index": 1,
+      "type": "label"
+    },
+    "std_type": {
+      "index": 2,
+      "type": "label"
+    },
+    "std_group": {
+      "index": 3,
+      "type": "label"
+    },
+    "query": {
+      "index": 4,
+      "type": "text",
+      "length": 200,
+      "seg_type": "char",
+      "ngram": 1,
+      "remove_stopwords": false,
+      "embedding_dim": 256,
+      "min_count": 5,
+      "ner": true
+    },
+    "factor": {
+      "index": 5,
+      "type": "value",
+      "length": 200,
+      "embedding_dim": 1,
+      "valid_key_file": "factor_valid_keys.txt",
+      "min_count": 30
+    },
+    "route": {
+      "index": 6,
+      "type": "seq",
+      "length": 100,
+      "embedding_dim": 50,
+      "min_count": 40
+    },
+    "service": {
+      "index": 7,
+      "type": "seq",
+      "length": 50,
+      "embedding_dim": 50,
+      "min_count": 40
+    }
+  },
+  "net": {
+    "query_cnn_shared": {
+      "input": "query",
+      "output": "query_cnn_output_shared",
+      "type": "cnn",
+      "ner": true,
+      "params": {
+        "dropout_rate": 0.2,
+        "filter_sizes": [5],
+        "input_channels": 1,
+        "num_filters": 32
+      }
+    },
+    "query_cnn_std_id": {
+      "input": "query",
+      "output": "query_cnn_output_std_id",
+      "type": "cnn",
+      "ner": true,
+      "params": {
+        "dropout_rate": 0.2,
+        "filter_sizes": [5],
+        "input_channels": 1,
+        "num_filters": 32
+      }
+    },
+    "query_cnn_std_type": {
+      "input": "query",
+      "output": "query_cnn_output_std_type",
+      "type": "cnn",
+      "ner": true,
+      "params": {
+        "dropout_rate": 0.2,
+        "filter_sizes": [5],
+        "input_channels": 1,
+        "num_filters": 32
+      }
+    },
+    "query_cnn_std_group": {
+      "input": "query",
+      "output": "query_cnn_output_std_group",
+      "type": "cnn",
+      "ner": true,
+      "params": {
+        "dropout_rate": 0.2,
+        "filter_sizes": [5],
+        "input_channels": 1,
+        "num_filters": 32
+      }
+    },
+    "factor_dcn_shared": {
+      "input": "factor",
+      "output": "factor_dcn_output_shared",
+      "type": "dcn",
+      "params": {
+        "cross_net_layers": 4,
+        "dnn_params": {
+          "dropout_rate": 0.5,
+          "layers": [1024, 768, 512],
+          "leaky_relu_neg_slope": 0.01
+        },
+        "use_cross_net": true,
+        "use_dnn": true
+      }
+    },
+    "route_lstm_shared": {
+      "input": "route",
+      "output": "route_lstm_output_shared",
+      "type": "rnn",
+      "params": {
+        "bidirectional": false,
+        "dropout_rate": 0.5,
+        "hidden_size": 50,
+        "num_layers": 1,
+        "pooling_type": "last",
+        "rnn_type": "lstm"
+      }
+    },
+    "service_lstm_shared": {
+      "input": "service",
+      "output": "service_lstm_output_shared",
+      "type": "rnn",
+      "params": {
+        "bidirectional": false,
+        "dropout_rate": 0.5,
+        "hidden_size": 50,
+        "num_layers": 1,
+        "pooling_type": "last",
+        "rnn_type": "lstm"
+      }
+    }
+  },
+
+  "output": {
+    "std_id": {
+      "input": [
+        "query_cnn_output_shared",
+        "query_cnn_output_std_id",
+        "factor_dcn_output_shared",
+        "route_lstm_output_shared",
+        "service_lstm_output_shared"
+      ],
+      "loss": "cross_entropy",
+      "neg_loss": "l2",
+      "neg_loss_weight": 0.1,
+      "weight": 1
+    },
+    "std_type": {
+      "input": [
+        "query_cnn_output_shared",
+        "query_cnn_output_std_type",
+        "factor_dcn_output_shared",
+        "route_lstm_output_shared",
+        "service_lstm_output_shared"
+      ],
+      "loss": "cross_entropy",
+      "neg_loss": "l2",
+      "neg_loss_weight": 0.1,
+      "weight": 1
+    },
+    "std_group": {
+      "input": [
+        "query_cnn_output_shared",
+        "query_cnn_output_std_group",
+        "factor_dcn_output_shared",
+        "route_lstm_output_shared",
+        "service_lstm_output_shared"
+      ],
+      "loss": "cross_entropy",
+      "neg_loss": "l2",
+      "neg_loss_weight": 0.1,
+      "weight": 1
+    }
+  }
+}

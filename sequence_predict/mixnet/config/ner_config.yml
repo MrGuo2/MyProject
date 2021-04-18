@@ -1,0 +1,10 @@
+embedding_size: 200
+hidden_size: 128
+model_path: ner_model/
+batch_size: 128
+dropout: 0.5
+tags:
+  - ORG
+  - PER
+  - LOC
+  - COM
