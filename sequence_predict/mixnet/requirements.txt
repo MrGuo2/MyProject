@@ -1,7 +1,7 @@
 concurrent-log-handler==0.9.16
 future==0.17.1
 jieba==0.39
-Pillow==6.0.0
+Pillow==8.2.0
 pytorch-crf==0.7.2
 pytorch_pretrained_bert==0.6.2
 PyYAML==3.13
